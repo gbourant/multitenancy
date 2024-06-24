@@ -15,6 +15,7 @@
         <quarkus.platform.version>3.12.0.CR1</quarkus.platform.version>
         <skipITs>true</skipITs>
         <surefire-plugin.version>3.2.5</surefire-plugin.version>
+        <quarkus.renarde.version>3.0.17-SNAPSHOT</quarkus.renarde.version>
     </properties>
 
     <dependencyManagement>
@@ -30,6 +31,31 @@
     </dependencyManagement>
 
     <dependencies>
+        <dependency>
+            <groupId>io.quarkiverse.renarde</groupId>
+            <artifactId>quarkus-renarde</artifactId>
+            <version>${quarkus.renarde.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkiverse.renarde</groupId>
+            <artifactId>quarkus-renarde-oidc</artifactId>
+            <version>${quarkus.renarde.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-jdbc-postgresql</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-hibernate-orm-panache</artifactId>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>io.quarkiverse.renarde</groupId>-->
+<!--            <artifactId>quarkus-renarde-security</artifactId>-->
+<!--            <version>${quarkus.renarde.version}</version>-->
+<!--        </dependency>-->
+
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-arc</artifactId>
