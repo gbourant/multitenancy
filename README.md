@@ -1,62 +1,19 @@
-# multitenancy
+This project works as expected only when using the login method via the `QuarkusCookie`.
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+It also works with `OIDC` but only when the `@Transactional` is present at `TodoResource#todos`.
 
-If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
+When `@Transactional` it's not present, the behaviour is unpredictable, because sometimes the CustomTenantResolver returns the `UUID` and sometimes the `base`.
 
-## Running the application in dev mode
+Check the following two videos:
 
-You can run your application in dev mode that enables live coding using:
+1. As you can see, I'm not logged in the Quarkus app although, I'm already logged in to my Google account, then I click to log in with my Google account, and I'm able to see the todos.
+Then i comment the `@Transactional` and it stopped working.
 
-```shell script
-./mvnw compile quarkus:dev
-```
+https://litter.catbox.moe/t19xg2.mp4
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.
+2. In the second video, I remove the cookies, then press F5 to refresh the page which takes me to the login page, login again with my Google account, redirected to the /todos in which now I'm not able to see the todos (remember `@Transactional` is commented).
+Now, I clear the cookies, I stop & start the Quarkus app, I click to refresh the page, login again with my Google account, and I'm able to see the todos (remember, `@Transaction` is commented).
 
-## Packaging and running the application
+https://litter.catbox.moe/c7q0hs.mp4
 
-The application can be packaged using:
-
-```shell script
-./mvnw package
-```
-
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
-
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
-
-If you want to build an _über-jar_, execute the following command:
-
-```shell script
-./mvnw package -Dquarkus.package.jar.type=uber-jar
-```
-
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
-
-## Creating a native executable
-
-You can create a native executable using:
-
-```shell script
-./mvnw package -Dnative
-```
-
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
-
-```shell script
-./mvnw package -Dnative -Dquarkus.native.container-build=true
-```
-
-You can then execute your native executable with: `./target/multitenancy-1.0.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult <https://quarkus.io/guides/maven-tooling>.
-
-## Provided Code
-
-### REST
-
-Easily start your REST Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
+Also, I got another question, why does it add the tenant id twice? `t1_0.TID = ? and t1_0.TID = ?`
